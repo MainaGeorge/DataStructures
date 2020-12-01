@@ -1,14 +1,15 @@
-﻿using LinkedListImplementation;
+﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace StackImplementation
 {
-    public class Stack<T>
+    public class Stack<T> : IEnumerable<T>
     {
-        private readonly LinkedList<T> _dataStorage;
+        private readonly LinkedListImplementation.LinkedList<T> _dataStorage;
 
         public Stack()
         {
-            _dataStorage = new LinkedList<T>();
+            _dataStorage = new LinkedListImplementation.LinkedList<T>();
         }
 
         public int Size => _dataStorage.Size;
@@ -33,6 +34,16 @@ namespace StackImplementation
         public bool IsEmpty()
         {
             return _dataStorage.Size == 0;
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return _dataStorage.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
