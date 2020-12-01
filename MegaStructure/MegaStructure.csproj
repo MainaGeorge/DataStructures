@@ -13,6 +13,7 @@
     <ProjectReference Include="..\DictionaryImplementation\DictionaryImplementation.csproj" />
     <ProjectReference Include="..\LinkedList\LinkedListImplementation.csproj" />
     <ProjectReference Include="..\Queue\QueueImplementation.csproj" />
+    <ProjectReference Include="..\SolvedProblems\SolvedProblems.csproj" />
     <ProjectReference Include="..\StackImplementation\StackImplementation.csproj" />
   </ItemGroup>
 
