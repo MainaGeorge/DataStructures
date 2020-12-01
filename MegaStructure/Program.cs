@@ -13,10 +13,11 @@ namespace MegaStructure
             dic["married"] = "yes of course";
             dic["wife"] = "Nuria";
 
-            foreach (var entry in dic.Keys())
-            {
-                Console.WriteLine(entry);
-            }
+            Console.WriteLine(dic.ContainsKey("Married"));
+
+
+
+
         }
 
     }

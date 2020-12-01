@@ -15,18 +15,8 @@ namespace DictionaryImplementation
             _data = new LinkedListImplementation.LinkedList<DictionaryEntry<TKey, TValue>>[5];
         }
 
-        public int Size
-        {
-            get
-            {
-                if (_data == null)
-                    return 0;
-                var count = _data.Where(list => list != null).Sum(list => list.Size);
-                return count;
-            }
-
-        }
-
+        public int Size => _data?.Where(list => list != null).Sum(list => list.Size) ?? 0;
+        
         public TValue this[TKey key]
         {
             get => Get(key);
@@ -139,6 +129,23 @@ namespace DictionaryImplementation
             var allKeys = (from lis in data from entry in lis select entry.Key).ToList();
 
             return allKeys;
+        }
+
+        public bool ContainsKey(TKey key)
+        {
+            var index = GetHashedKey(key);
+
+            if (_data[index] == null)
+                return false;
+            var topNode = _data[index].HeadNode;
+            while (topNode != null)
+            {
+                if (topNode.Value.Key.Equals(key))
+                    return true;
+                topNode = topNode.Next;
+            }
+
+            return false;
         }
         public IEnumerable<TValue> Values()
         {
