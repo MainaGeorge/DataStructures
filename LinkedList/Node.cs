@@ -10,5 +10,11 @@
             Next = next;
             Value = value;
         }
+
+        public override string ToString()
+        {
+            var nodeValue = Next?.ToString() ?? "null";
+            return $"Node: {Value} with next as {nodeValue}";
+        }
     }
 }

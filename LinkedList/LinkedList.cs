@@ -14,18 +14,34 @@ namespace LinkedListImplementation
         public void Add(T value) => AddLast(value);
         public LinkedList(Node<T> headNode)
         {
-            HeadNode = headNode;
-            TailNode = headNode;
-            Size++;
+            AddFirst(headNode);
         }
         public void AddFirst(Node<T> node)
         {
             if (IsEmpty)
-                HeadNode = TailNode = node;
+            {
+                HeadNode = node;
+                TailNode = SetTailNode(node);
+            }
             else
             {
-                node.Next = HeadNode;
-                HeadNode = node;
+                if (node.Next == null)
+                {
+                    node.Next = HeadNode;
+                    HeadNode = node;
+                }
+                else
+                {
+                    var fakeNode = node;
+                    while (fakeNode.Next != null)
+                    {
+                        Size++;
+                        fakeNode = fakeNode.Next;
+                    }
+
+                    fakeNode.Next = HeadNode;
+                    HeadNode = node;
+                }
             }
 
             Size++;
@@ -39,14 +55,23 @@ namespace LinkedListImplementation
         public void AddLast(Node<T> node)
         {
             if (IsEmpty)
-                HeadNode = TailNode = node;
-            else
             {
-                TailNode.Next = node;
-                TailNode = node;
+                HeadNode = node;
+                TailNode = SetTailNode(node);
             }
+            else
+                TailNode = SetTailNode(node);
 
             Size++;
+        }
+        private Node<T> SetTailNode(Node<T> node)
+        {
+            while (node.Next != null)
+            {
+                node = node.Next;
+                Size++;
+            }
+            return node;
         }
         public void AddLast(T value)
         {
