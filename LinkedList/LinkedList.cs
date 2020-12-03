@@ -25,7 +25,7 @@ namespace LinkedListImplementation
             }
             else
             {
-                if (node.Next == null)
+                if (NodeContainsOneElement(node))
                 {
                     node.Next = HeadNode;
                     HeadNode = node;
@@ -46,6 +46,7 @@ namespace LinkedListImplementation
 
             Size++;
         }
+        private static bool NodeContainsOneElement(Node<T> node) => node.Next == null;
         public void AddFirst(T value)
         {
             var node = new Node<T>(value);
@@ -82,6 +83,7 @@ namespace LinkedListImplementation
         {
             if (index == 0)
                 AddFirst(value);
+
             else if (index == Size - 1)
                 AddLast(value);
             else
@@ -242,7 +244,6 @@ namespace LinkedListImplementation
 
             return foundIndex;
         }
-
         public void Remove(T value)
         {
             if (HeadNode.Value.Equals(value))
@@ -265,7 +266,6 @@ namespace LinkedListImplementation
 
 
         }
-
         private Node<T> GetNodeBeforeGiven(T value)
         {
             var currentNode = HeadNode;
