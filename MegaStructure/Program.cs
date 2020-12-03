@@ -8,9 +8,8 @@ namespace MegaStructure
         private static void Main()
         {
 
-            var node = new Node<int>(3, new Node<int>(5));
-
-            Console.WriteLine(node);
+            var list = new LinkedList<int>(new Node<int>(3, new Node<int>(2)));
+            list.AddAt(1, 13);
         }
 
     }

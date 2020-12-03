@@ -16,6 +16,11 @@ namespace LinkedListImplementation
         {
             AddFirst(headNode);
         }
+
+        public LinkedList(T value)
+        {
+            AddFirst(value);
+        }
         public void AddFirst(Node<T> node)
         {
             if (IsEmpty)
@@ -61,7 +66,12 @@ namespace LinkedListImplementation
                 TailNode = SetTailNode(node);
             }
             else
-                TailNode = SetTailNode(node);
+            {
+                var veryLastNode = SetTailNode(node);
+                TailNode.Next = veryLastNode;
+                TailNode = TailNode.Next;
+
+            }
 
             Size++;
         }
@@ -83,9 +93,6 @@ namespace LinkedListImplementation
         {
             if (index == 0)
                 AddFirst(value);
-
-            else if (index == Size - 1)
-                AddLast(value);
             else
             {
                 var nodeBefore = GetNodeBeforeRequired(index);
@@ -304,6 +311,24 @@ namespace LinkedListImplementation
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        public Node<T> GetAt(int index)
+        {
+            if (index < 0 || index >= Size)
+                throw new InvalidOperationException();
+
+            var currentNode = HeadNode;
+            var count = 0;
+
+            while (currentNode != null)
+            {
+                if (count == index)
+                    return currentNode;
+                currentNode = currentNode.Next;
+                count++;
+            }
+            return null;
         }
     }
 }
