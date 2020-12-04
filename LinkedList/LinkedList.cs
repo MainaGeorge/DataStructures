@@ -93,6 +93,8 @@ namespace LinkedListImplementation
         {
             if (index == 0)
                 AddFirst(value);
+            else if (index == Size)
+                AddLast(value);
             else
             {
                 var nodeBefore = GetNodeBeforeRequired(index);
@@ -202,14 +204,14 @@ namespace LinkedListImplementation
             else
                 RemoveAMidElement(index);
         }
-        public Node<T>[] ToArray()
+        public T[] ToArray()
         {
             var current = HeadNode;
-            var array = new Node<T>[Size];
+            var array = new T[Size];
 
             for (var index = 0; index < Size; index++)
             {
-                array[index] = current;
+                array[index] = current.Value;
                 current = current.Next;
             }
 

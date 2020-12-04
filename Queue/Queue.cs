@@ -12,6 +12,10 @@ namespace QueueImplementation
             _dataStorage = new LinkedListImplementation.LinkedList<T>();
         }
 
+        public Queue(T value) : this()
+        {
+            Enqueue(value);
+        }
         public void Enqueue(T value) => _dataStorage.AddLast(value);
 
         public T Dequeue()

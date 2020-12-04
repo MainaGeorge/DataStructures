@@ -12,6 +12,11 @@ namespace StackImplementation
             _dataStorage = new LinkedListImplementation.LinkedList<T>();
         }
 
+        public Stack(T value) : this()
+        {
+            _dataStorage.Add(value);
+        }
+
         public int Size => _dataStorage.Size;
 
         public void Push(T value)

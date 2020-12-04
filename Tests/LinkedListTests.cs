@@ -98,12 +98,43 @@ namespace Tests
         }
 
         [Fact]
+        public void LinkedList_CanInsertElementAtTheBeginning_UsingIndexZero()
+        {
+            var list = new LinkedList<int>(new Node<int>(3, new Node<int>(2)));
+            list.AddAt(0, 13);
+
+            Assert.Equal(13, list.HeadNode.Value);
+        }
+        [Fact]
+        public void LinkedList_CanInsertElementAtTheEnd_UsingIndex()
+        {
+            var list = new LinkedList<int>();
+            list.AddFirst(10);
+            list.AddLast(20);
+            list.AddAt(2, 13);
+
+            Assert.Equal(13, list.TailNode.Value);
+        }
+
+        [Fact]
         public void LinkedList_ThrowsErrorIfRemovingFromEmptyList()
         {
             var list = new LinkedList<int>();
 
             Assert.Throws<InvalidOperationException>(() => list.RemoveLast());
             Assert.Throws<InvalidOperationException>(() => list.RemoveFirst());
+        }
+
+        [Fact]
+        public void LinkedList_CanReturnAnArrayOfValues()
+        {
+            var list = new LinkedList<int>();
+            list.AddLast(10);
+            list.AddLast(20);
+            list.AddLast(30);
+
+            var arr = new int[] {10, 20, 30};
+            Assert.Equal(arr, list.ToArray());
         }
 
 
