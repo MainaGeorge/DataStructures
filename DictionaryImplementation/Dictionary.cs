@@ -116,17 +116,17 @@ namespace DictionaryImplementation
 
             return result;
         }
-        public int GetHashedKey(TKey key) => Math.Abs(key.GetHashCode() % _data.Length);
+        private int GetHashedKey(TKey key) => Math.Abs(key.GetHashCode() % _data.Length);
 
         public IEnumerator<DictionaryEntry<TKey, TValue>> GetEnumerator()
         {
             return _data.Where(list => list != null).SelectMany(list => list).GetEnumerator();
         }
 
-        public IEnumerable<TKey> Keys()
+        public TKey[] Keys()
         {
             var data = _data.Where(x => x != null);
-            var allKeys = (from lis in data from entry in lis select entry.Key).ToList();
+            var allKeys = (from lis in data from entry in lis select entry.Key).ToArray();
 
             return allKeys;
         }
@@ -147,11 +147,11 @@ namespace DictionaryImplementation
 
             return false;
         }
-        public IEnumerable<TValue> Values()
+        public TValue[] Values()
         {
             var data = _data.Where(x => x != null);
             var allValues
-                = (from lis in data from entry in lis select entry.Value).ToList();
+                = (from lis in data from entry in lis select entry.Value).ToArray();
 
             return allValues;
         }

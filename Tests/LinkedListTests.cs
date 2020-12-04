@@ -137,6 +137,28 @@ namespace Tests
             Assert.Equal(arr, list.ToArray());
         }
 
+        [Fact]
+        public void LinkedList_ReturnsTrueIfElementIsPresent()
+        {
+            var list = new LinkedList<int>();
+            list.AddLast(10);
+            list.AddLast(20);
+            list.AddLast(30);
+
+            Assert.True(list.Contains(20));
+        }
+        
+        [Fact]
+        public void LinkedList_ReturnsFalseIfElementIsNotPresent()
+        {
+            var list = new LinkedList<int>();
+            list.AddLast(10);
+            list.AddLast(20);
+            list.AddLast(30);
+
+            Assert.False(list.Contains(200));
+        }
+
 
     }
 }
