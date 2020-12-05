@@ -16,7 +16,6 @@ namespace LinkedListImplementation
         {
             AddFirst(headNode);
         }
-
         public LinkedList(T value)
         {
             AddFirst(value);

@@ -10,10 +10,14 @@
             Value = value;
         }
 
+        /*
         public override string ToString()
         {
             var nodeValue = Next?.ToString() ?? "null";
             return $"Node: {Value} with next as {nodeValue}";
         }
+
+        to stop stack overflow for circular lists
+        */
     }
 }
