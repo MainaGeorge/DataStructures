@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace LinkedListImplementation
 {
-    public class CircularLinkedList<T>
+    public class CircularLinkedList<T> : IEnumerable<T>
     {
         public Node<T> HeadNode { get; private set; }
         public Node<T> TailNode { get; private set; }
@@ -54,12 +56,11 @@ namespace LinkedListImplementation
 
             Size++;
         }
-
         public Node<T> GetAt(int index)
         {
-            if(index < 0 || index >= Size)
+            if (index < 0 || index >= Size)
                 throw new IndexOutOfRangeException();
-            if(IsEmpty())
+            if (IsEmpty())
                 throw new InvalidOperationException();
             var count = 0;
             var currentNode = HeadNode;
@@ -143,25 +144,24 @@ namespace LinkedListImplementation
             }
             Size--;
         }
-
         public void RemoveAt(int index)
         {
-            if(IsEmpty())
+            if (IsEmpty())
                 throw new InvalidOperationException();
-            
-            if(index < 0 || index >= Size)
+
+            if (index < 0 || index >= Size)
                 throw new IndexOutOfRangeException();
 
-            if(index == 0 )
+            if (index == 0)
                 RemoveFirst();
-            else if(index == Size-1)
+            else if (index == Size - 1)
                 RemoveLast();
             else
             {
                 var node = GetNodeBeforeRequiredIndex(index);
                 if (node.Next == GetNodeWhereCycleBegins())
                     TailNode.Next = node.Next.Next;
-                
+
                 node.Next = node.Next.Next;
                 Size--;
             }
@@ -227,6 +227,21 @@ namespace LinkedListImplementation
 
             return currentNode;
         }
+        public IEnumerator<T> GetEnumerator()
+        {
+            var currentNode = HeadNode;
+            var count = 0;
 
+            while (count < Size)
+            {
+                yield return currentNode.Value;
+                currentNode = currentNode.Next;
+                count++;
+            }
+        }
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 }
