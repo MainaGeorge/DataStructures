@@ -159,6 +159,31 @@ namespace Tests
             Assert.False(list.Contains(200));
         }
 
+        [Fact]
+        public void LinkedList_ThrowsErrorIfRemovingFromInvalidIndex()
+        {
+            var list = new LinkedList<int>();
+            list.AddLast(10);
+
+            Assert.Throws<IndexOutOfRangeException>(() => list.RemoveAt(-1));
+            Assert.Throws<IndexOutOfRangeException>(() => list.RemoveAt(3));
+        }
+
+        [Fact]
+        public void LinkedList_CanBeReversed()
+        {
+            var list = new LinkedList<int>();
+            list.AddLast(10);
+            list.AddLast(20);
+            list.AddLast(30);
+
+            list.Reverse();
+
+            Assert.Equal(30, list.HeadNode.Value);
+            Assert.Equal(10, list.TailNode.Value);
+
+        }
+
 
     }
 }

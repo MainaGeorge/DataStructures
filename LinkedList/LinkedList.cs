@@ -194,6 +194,8 @@ namespace LinkedListImplementation
         }
         public void RemoveAt(int index)
         {
+            if(IsEmpty)
+                throw new InvalidOperationException();
             if (index < 0 || index >= Size)
                 throw new IndexOutOfRangeException();
             if (index == 0)

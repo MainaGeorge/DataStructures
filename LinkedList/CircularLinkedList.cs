@@ -54,6 +54,37 @@ namespace LinkedListImplementation
 
             Size++;
         }
+
+        public Node<T> GetAt(int index)
+        {
+            if(index < 0 || index >= Size)
+                throw new IndexOutOfRangeException();
+            if(IsEmpty())
+                throw new InvalidOperationException();
+            var count = 0;
+            var currentNode = HeadNode;
+            while (count < index)
+            {
+                currentNode = currentNode.Next;
+                count++;
+            }
+
+            return currentNode;
+        }
+        public bool Contains(T value)
+        {
+            var count = 0;
+            var currentNode = HeadNode;
+            while (count < Size)
+            {
+                if (currentNode.Value.Equals(value))
+                    return true;
+                count++;
+                currentNode = currentNode.Next;
+            }
+
+            return false;
+        }
         public T[] ToArray()
         {
             if (IsEmpty())
@@ -115,7 +146,10 @@ namespace LinkedListImplementation
 
         public void RemoveAt(int index)
         {
-            if(index < 0 || index > Size-1)
+            if(IsEmpty())
+                throw new InvalidOperationException();
+            
+            if(index < 0 || index >= Size)
                 throw new IndexOutOfRangeException();
 
             if(index == 0 )
