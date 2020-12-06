@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Runtime.InteropServices.ComTypes;
 
 namespace LinkedListImplementation
 {
@@ -23,7 +21,6 @@ namespace LinkedListImplementation
                 HeadNode.Previous = node;
                 HeadNode = node;
             }
-
             Size++;
         }
         public void AddLast(T value)
@@ -48,32 +45,27 @@ namespace LinkedListImplementation
                 return;
             }
 
-            if (index < 0 || index >= Size)
+            if (index < 0 || index > Size)
                 throw new IndexOutOfRangeException();
 
             if (index == 0)
                 AddFirst(value);
-            else if (index == Size - 1)
+            else if (index == Size)
                 AddLast(value);
             else
             {
-                var newNode = new DoublyLinkedNode<T>(value);
                 var nodeBeforeIndex = GetNodeBeforeIndex(index);
-                var nodeAfterNewNode = nodeBeforeIndex.Next;
-
-                nodeAfterNewNode.Previous = newNode;
+                var newNode = new DoublyLinkedNode<T>(value, nodeBeforeIndex.Next, nodeBeforeIndex);
                 nodeBeforeIndex.Next = newNode;
-
-                newNode.Previous = nodeBeforeIndex;
-                newNode.Next = nodeAfterNewNode;
+                nodeBeforeIndex.Next.Previous = newNode;
                 Size++;
             }
         }
         public DoublyLinkedNode<T> GetAt(int index)
         {
-            if(IsEmpty())
+            if (IsEmpty())
                 throw new InvalidOperationException();
-            if(index < 0 || index >= Size)
+            if (index < 0 || index >= Size)
                 throw new IndexOutOfRangeException();
 
             return GetNodeAtIndex(index);
@@ -187,7 +179,7 @@ namespace LinkedListImplementation
             }
             return currentNode;
         }
-        public bool HasOneNode() => Size == 1;
+        private bool HasOneNode() => Size == 1;
         public IEnumerator<T> GetEnumerator()
         {
             var currentNode = HeadNode;
