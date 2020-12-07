@@ -79,9 +79,9 @@ namespace BinaryTree
         public static int MinimumDepth(this Node rootNode)
         {
             if (rootNode == null)
-                return 0;
+                return -1;
             if (rootNode.IsALeafNode())
-                return 1;
+                return 0;
 
             var leftLength = 1 + MinimumDepth(rootNode.LeftChild);
             var rightLength = 1 + MinimumDepth(rootNode.RightChild);
@@ -93,10 +93,10 @@ namespace BinaryTree
         public static int MinimumDepthWithQueue(this Node root)
         {
             if (root == null)
-                return 0;
+                return -1;
 
             var nodeQueue = new Queue<(Node Node, int Depth)>();
-            nodeQueue.Enqueue((root, 1));
+            nodeQueue.Enqueue((root, 0));
 
             while (nodeQueue.Any())
             {
@@ -113,9 +113,9 @@ namespace BinaryTree
         public static int MaximumDepth(this Node rootNode)
         {
             if (rootNode == null)
-                return 0;
+                return -1;
             if (rootNode.IsALeafNode())
-                return 1;
+                return 0;
 
             var leftLength = 1 + MaximumDepth(rootNode.LeftChild);
             var rightLength = 1 + MaximumDepth(rootNode.RightChild);

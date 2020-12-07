@@ -79,9 +79,8 @@ namespace LinkedListImplementation
                 HeadNode = TailNode = null;
             else
             {
-                var secondNode = HeadNode.Next;
-                secondNode.Previous = null;
-                HeadNode = secondNode;
+                HeadNode = HeadNode.Next;
+                HeadNode.Previous = null;
             }
 
             Size--;
@@ -95,9 +94,8 @@ namespace LinkedListImplementation
                 HeadNode = TailNode = null;
             else
             {
-                var secondLastNode = TailNode.Previous;
-                secondLastNode.Next = null;
-                TailNode = secondLastNode;
+                TailNode = TailNode.Previous;
+                TailNode.Next = null;
             }
 
             Size--;

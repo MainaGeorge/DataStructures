@@ -1,4 +1,4 @@
-﻿using LinkedListImplementation;
+﻿using BinaryTree;
 using System;
 
 namespace MegaStructure
@@ -8,12 +8,22 @@ namespace MegaStructure
         private static void Main()
         {
 
-            var doubly = new DoublyLinkedList<int> {100, 200, 300};
-            doubly.AddAt(doubly.Size, 1000);
+            var tree = new Tree();
+            tree.Insert(20);
+            tree.Insert(40);
+            tree.Insert(10);
+            tree.Insert(50);
+            // tree.Insert(30);
+            // tree.Insert(15);
+            tree.Insert(8);
 
-            Console.WriteLine(string.Join(" ==> ", doubly.ToArray()));
+            var paths = tree.GetPathsToRoot();
+
+            Console.WriteLine(tree.TreeDiameter());
 
         }
+
+
 
     }
 }
