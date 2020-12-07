@@ -6,6 +6,18 @@ namespace Tests
 {
     public class BinaryTreeTests
     {
+        [Fact]
+        public void Tree_CanStartWithARootNode()
+        {
+            var tree = new Tree(10);
+            Assert.Equal(1, tree.CountNodes());
+        }
+        [Fact]
+        public void Tree_CanStartWithoutARootNode()
+        {
+            var tree = new Tree();
+            Assert.Equal(0, tree.CountNodes());
+        }
 
         [Theory]
         [MemberData(nameof(TreeData.TreeWithMaximumHeights), MemberType = typeof(TreeData))]
@@ -118,5 +130,20 @@ namespace Tests
         {
             Assert.Equal(tree.ZigZagTraversal(), zigzagNodes);
         }
+
+        [Theory]
+        [MemberData(nameof(TreeData.TraverseLevelWiseReverse), MemberType = typeof(TreeData))]
+        public void Tree_CanTraverseLevelWiseInReverse(Tree tree, IList<IList<int>> reversedNodes)
+        {
+            Assert.Equal(tree.ReverseTraverseLevelWise(), reversedNodes);
+        }
+        [Theory]
+        [MemberData(nameof(TreeData.TraverseLevelWise), MemberType = typeof(TreeData))]
+        public void Tree_CanTraverseLevelWise(Tree tree, IList<IList<int>> nodes)
+        {
+            Assert.Equal(tree.TraverseLevelWise(), nodes);
+        }
+
+        
     }
 }

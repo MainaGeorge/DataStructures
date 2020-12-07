@@ -142,6 +142,48 @@ namespace Tests
                 };
             }
         }
+        public static IEnumerable<object[]> TraverseLevelWiseReverse
+        {
+            get
+            {
+                var res = new List<IList<int>>()
+                {
+                    new List<int>(){8, 15, 30, 50}, new List<int>(){10, 40}, new List<int>(){20},
+                };
+                var res2 = new List<IList<int>>()
+                {
+                    new List<int>(){25, 75}, new List<int>(){50}
+                };
+
+                return new List<object[]>()
+                {
+                    new object[] {Tree1, res},
+                    new object[] {Tree4, res2},
+                };
+            }
+        }
+        public static IEnumerable<object[]> TraverseLevelWise
+        {
+
+            get
+            {
+                var res = new List<IList<int>>()
+                {
+                    new List<int>(){20},new List<int>(){10, 40}, new List<int>(){8, 15, 30, 50},
+                };
+                var res2 = new List<IList<int>>()
+                {
+                    new List<int>(){50}, new List<int>(){25, 75}
+                };
+
+                return new List<object[]>()
+                {
+                    new object[] {Tree1, res},
+                    new object[] {Tree4, res2},
+                };
+            }
+            
+        }
         private static Tree Tree1
         {
             get
