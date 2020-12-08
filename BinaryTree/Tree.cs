@@ -31,7 +31,25 @@ namespace BinaryTree
         public IList<int> GetMaxValuesPerLevel() => BinaryFunctions.GetMaximumValuesPerLevel(_root);
         public IList<IList<int>> TraverseLevelWise() => _root.LevelOrderTraversal();
         public IList<IList<int>> ReverseTraverseLevelWise() => _root.TraverseLevelsReverse();
-        public void TraverseInOrder() => _root.InOrderTraversal();
+        public IList<int> TraversePreOrder()
+        {
+            var nodes = new List<int>();
+            PreOrderTraversal(_root, nodes);
+            return nodes;
+        }
+        public IList<int> TraverseInOrder()
+        {
+            var nodes = new List<int>();
+            InOrderTraversal(_root, nodes);
+
+            return nodes;
+        }
+        public IList<int> TraversePostOrder()
+        {
+            var nodes = new List<int>();
+            PostOrder(_root, nodes);
+            return nodes;
+        }
         public IList<IList<int>> ZigZagTraversal() => _root.ZigZagTraversal();
         public void InvertTree() => _root = _root.InvertTree();
         public int MaximumDepth => _root.MaximumDepth();
@@ -159,11 +177,12 @@ namespace BinaryTree
             return ContainsPathLeadingToGivenSum(root.LeftChild, givenSum, currentSum) ||
                    ContainsPathLeadingToGivenSum(root.RightChild, givenSum, currentSum);
         }
-        private static void GetPathsToRoot(Node root, List<List<int>> holder, List<int> temp)
+        private static void GetPathsToRoot(Node root, ICollection<List<int>> holder, IList<int> temp)
         {
             if (root == null)
                 return;
             temp.Add(root.Value);
+
             if (IsALeafNode(root))
                 holder.Add(new List<int>(temp));
 
@@ -184,6 +203,32 @@ namespace BinaryTree
             GetNodesAtGivenHeight(root.LeftChild, height-1, nodes);
             GetNodesAtGivenHeight(root.RightChild, height-1, nodes);
 
+        }
+        private static void InOrderTraversal(Node root, ICollection<int> nodes)
+        {
+            if (root == null)
+                return;
+            InOrderTraversal(root.LeftChild, nodes);
+            nodes.Add(root.Value);
+            InOrderTraversal(root.RightChild, nodes);
+        }
+        private static void PreOrderTraversal(Node root, ICollection<int> nodes)
+        {
+            if (root == null)
+                return;
+
+            nodes.Add(root.Value);
+            PreOrderTraversal(root.LeftChild, nodes);
+            PreOrderTraversal(root.RightChild, nodes);
+        }
+        private static void PostOrder(Node root, ICollection<int> nodes)
+        {
+            if (root == null)
+                return;
+            PostOrder(root.LeftChild, nodes);
+            PostOrder(root.RightChild, nodes);
+
+            nodes.Add(root.Value);
         }
     }
 }

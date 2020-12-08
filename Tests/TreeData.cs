@@ -203,6 +203,54 @@ namespace Tests
             }
 
         }
+        public static IEnumerable<object[]> TraverseInOrder
+        {
+            get
+            {
+                var node1 = new List<int>() { 8, 10, 15, 20, 30, 40, 50 };
+                var node2 = new List<int>() { 45, 50, 75, 100, 110, 150, 160, 200, 250, 300 };
+                var node4 = new List<int>() { 25, 50, 75 };
+
+                return new List<object[]>()
+                {
+                    new object[]{Tree1, node1},
+                    new object[]{Tree2, node2},
+                    new object[]{Tree4, node4}
+                };
+            }
+        }
+        public static IEnumerable<object[]> TraversePreOrder
+        {
+            get
+            {
+                var node1 = new List<int>() { 20, 10, 8, 15, 40, 30, 50 };
+                var node2 = new List<int>() { 100, 50, 45, 75, 200, 150, 110, 160, 250, 300 };
+                var node4 = new List<int>() { 50, 25, 75 };
+
+                return new List<object[]>()
+                {
+                    new object[]{Tree1, node1},
+                    new object[]{Tree2, node2},
+                    new object[]{Tree4, node4}
+                };
+            }
+        }
+        public static IEnumerable<object[]> TraversePostOrder
+        {
+            get
+            {
+                var node1 = new List<int>() { 8, 15, 10, 30, 50, 40, 20 };
+                var node2 = new List<int>() { 45, 75, 50, 110, 160, 150, 300, 250, 200, 100 };
+                var node4 = new List<int>() { 25, 75, 50 };
+
+                return new List<object[]>()
+                {
+                    new object[]{Tree1, node1},
+                    new object[]{Tree2, node2},
+                    new object[]{Tree4, node4}
+                };
+            }
+        }
         private static Tree Tree1
         {
             get

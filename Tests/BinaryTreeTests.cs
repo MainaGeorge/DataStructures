@@ -150,6 +150,29 @@ namespace Tests
         {
             Assert.Equal(tree.GetNOdesAtGivenHeight(height), nodes);
         }
+
+        [Theory]
+        [MemberData(nameof(TreeData.TraverseInOrder), MemberType = typeof(TreeData))]
+        public void Tree_CanTraverseInOrder(Tree tree, IList<int> nodes)
+        {
+            Assert.Equal(tree.TraverseInOrder(), nodes);
+        }
+        
+        [Theory]
+        [MemberData(nameof(TreeData.TraversePreOrder), MemberType = typeof(TreeData))]
+        public void Tree_CanTraversePreOrder(Tree tree, IList<int> nodes)
+        {
+            Assert.Equal(tree.TraversePreOrder(), nodes);
+        }
+        
+        [Theory]
+        [MemberData(nameof(TreeData.TraversePostOrder), MemberType = typeof(TreeData))]
+        public void Tree_CanTraversePostOrder(Tree tree, IList<int> nodes)
+        {
+            Assert.Equal(tree.TraversePostOrder(), nodes);
+        }
+
+
         
     }
 }
