@@ -144,6 +144,12 @@ namespace Tests
             Assert.Equal(tree.TraverseLevelWise(), nodes);
         }
 
+        [Theory]
+        [MemberData(nameof(TreeData.TreeWithNodesAtHeight), MemberType = typeof(TreeData))]
+        public void Tree_CanGetNodesAtAGivenLevel(Tree tree, int height, IList<int> nodes)
+        {
+            Assert.Equal(tree.GetNOdesAtGivenHeight(height), nodes);
+        }
         
     }
 }

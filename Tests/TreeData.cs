@@ -27,7 +27,7 @@ namespace Tests
             new object[]{Tree3}
         };
         public static IEnumerable<object[]> TreeWithMinimumHeights =>
-            new List<object[]>() 
+            new List<object[]>()
             {
                 new object[] {Tree1, 2},
                 new object[] {Tree2, 2},
@@ -123,7 +123,8 @@ namespace Tests
             new object[] {Tree1, 10, 30, 20},
             new object[] {Tree1, 10, 100, 10},
         };
-        public static IEnumerable<object[]> TraverseZigZag {
+        public static IEnumerable<object[]> TraverseZigZag
+        {
             get
             {
                 var res = new List<IList<int>>
@@ -132,7 +133,7 @@ namespace Tests
                 };
                 var res2 = new List<IList<int>>
                 {
-                    new List<int>() {100}, new List<int>() {50, 200}, 
+                    new List<int>() {100}, new List<int>() {50, 200},
                     new List<int>() {250, 150, 75, 45}, new List<int>() {110, 160,300}
                 };
                 return new List<object[]>()
@@ -162,6 +163,24 @@ namespace Tests
                 };
             }
         }
+        public static IEnumerable<object[]> TreeWithNodesAtHeight
+        {
+            get
+            {
+                var res = new List<int>() { 8, 15, 30, 50 };
+                var res2 = new List<int>() { 10, 40 };
+                var res3 = new List<int>() { 110, 160, 300 };
+                var res4 = new List<int>() { 50 };
+
+                return new List<object[]>()
+                {
+                    new object[]{Tree1, 2, res},
+                    new object[]{Tree1, 1, res2},
+                    new object[]{Tree2, 3, res3},
+                    new object[]{Tree4, 0, res4},
+                };
+            }
+        }
         public static IEnumerable<object[]> TraverseLevelWise
         {
 
@@ -182,7 +201,7 @@ namespace Tests
                     new object[] {Tree4, res2},
                 };
             }
-            
+
         }
         private static Tree Tree1
         {

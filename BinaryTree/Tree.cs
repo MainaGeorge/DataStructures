@@ -70,6 +70,13 @@ namespace BinaryTree
         }
         public Node GetAncestor(int firstElement, int secondElement) =>
             AncestorNode(_root, firstElement, secondElement);
+        public IList<int> GetNOdesAtGivenHeight(int height)
+        {
+            var nodes = new List<int>();
+            GetNodesAtGivenHeight(_root, height, nodes);
+
+            return nodes;
+        }
         private static Node AncestorNode(Node root, int firstMember, int secondMember)
         {
             if (root == null)
@@ -166,5 +173,17 @@ namespace BinaryTree
             temp.RemoveAt(temp.Count - 1);
         }
         private static bool IsALeafNode(Node node) => node.LeftChild == null && node.RightChild == null;
+        private static void GetNodesAtGivenHeight(Node root, int height, IList<int> nodes)
+        {
+            if (root == null)
+                return;
+
+            if(height == 0)
+                nodes.Add(root.Value);
+
+            GetNodesAtGivenHeight(root.LeftChild, height-1, nodes);
+            GetNodesAtGivenHeight(root.RightChild, height-1, nodes);
+
+        }
     }
 }
