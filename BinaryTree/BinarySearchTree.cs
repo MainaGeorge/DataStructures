@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace BinaryTree
 {
-    public class Tree
+    public class BinarySearchTree
     {
         private Node _root;
-        public Tree()
+        public BinarySearchTree()
         {
         }
-        public Tree(int value)
+        public BinarySearchTree(int value)
         {
             _root = new Node(value);
         }
@@ -28,29 +28,29 @@ namespace BinaryTree
         public int MinimumDepth => _root.MinimumDepth();
         public int MinimumDepthWithQueue => _root.MinimumDepthWithQueue();
         public bool IsValidBst() => _root.IsBinarySearchTree(int.MaxValue, int.MinValue);
-        public IList<int> GetMaxValuesPerLevel() => BinaryFunctions.GetMaximumValuesPerLevel(_root);
-        public IList<IList<int>> TraverseLevelWise() => _root.LevelOrderTraversal();
-        public IList<IList<int>> ReverseTraverseLevelWise() => _root.TraverseLevelsReverse();
-        public IList<int> TraversePreOrder()
+        public ICollection<int> GetMaxValuesPerLevel() => BinaryFunctions.GetMaximumValuesPerLevel(_root);
+        public ICollection<IList<int>> TraverseLevelWise() => _root.LevelOrderTraversal();
+        public ICollection<IList<int>> ReverseTraverseLevelWise() => _root.TraverseLevelsReverse();
+        public ICollection<int> TraversePreOrder()
         {
             var nodes = new List<int>();
             PreOrderTraversal(_root, nodes);
             return nodes;
         }
-        public IList<int> TraverseInOrder()
+        public ICollection<int> TraverseInOrder()
         {
             var nodes = new List<int>();
             InOrderTraversal(_root, nodes);
 
             return nodes;
         }
-        public IList<int> TraversePostOrder()
+        public ICollection<int> TraversePostOrder()
         {
             var nodes = new List<int>();
             PostOrder(_root, nodes);
             return nodes;
         }
-        public IList<IList<int>> ZigZagTraversal() => _root.ZigZagTraversal();
+        public ICollection<IList<int>> ZigZagTraversal() => _root.ZigZagTraversal();
         public void InvertTree() => _root = _root.InvertTree();
         public int MaximumDepth => _root.MaximumDepth();
         public int MinimumNodeValue() => IsValidBst() ? _root.MinimumValueNodeBinarySearchTree() : _root.MinimumValueBinaryTree();
@@ -88,7 +88,7 @@ namespace BinaryTree
         }
         public Node GetAncestor(int firstElement, int secondElement) =>
             AncestorNode(_root, firstElement, secondElement);
-        public IList<int> GetNOdesAtGivenHeight(int height)
+        public ICollection<int> GetNOdesAtGivenHeight(int height)
         {
             var nodes = new List<int>();
             GetNodesAtGivenHeight(_root, height, nodes);
@@ -141,7 +141,6 @@ namespace BinaryTree
             currentSum = Math.Max(maxSumPath, currentSum);
             maximumSum = Math.Max(Math.Max(maximumSum, currentSum), cyclicPath);
 
-            Console.WriteLine(maximumSum);
             //return the max path, root + left or root + right or root to connect the tree for the recursion
             return Math.Max(Math.Max(leftSum + root.Value, rightSum + root.Value), root.Value);
         }
@@ -192,16 +191,16 @@ namespace BinaryTree
             temp.RemoveAt(temp.Count - 1);
         }
         private static bool IsALeafNode(Node node) => node.LeftChild == null && node.RightChild == null;
-        private static void GetNodesAtGivenHeight(Node root, int height, IList<int> nodes)
+        private static void GetNodesAtGivenHeight(Node root, int height, ICollection<int> nodes)
         {
             if (root == null)
                 return;
 
-            if(height == 0)
+            if (height == 0)
                 nodes.Add(root.Value);
 
-            GetNodesAtGivenHeight(root.LeftChild, height-1, nodes);
-            GetNodesAtGivenHeight(root.RightChild, height-1, nodes);
+            GetNodesAtGivenHeight(root.LeftChild, height - 1, nodes);
+            GetNodesAtGivenHeight(root.RightChild, height - 1, nodes);
 
         }
         private static void InOrderTraversal(Node root, ICollection<int> nodes)

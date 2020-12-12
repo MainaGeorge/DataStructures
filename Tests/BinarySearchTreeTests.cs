@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Tests
 {
-    public class BinaryTreeTests
+    public class BinarySearchTreeTests
     {
         [Fact]
         public void Tree_CanStartWithARootNode()

@@ -251,11 +251,11 @@ namespace Tests
                 };
             }
         }
-        private static Tree Tree1
+        private static BinarySearchTree Tree1
         {
             get
             {
-                var tree = new Tree();
+                var tree = new BinarySearchTree();
                 tree.Insert(20);
                 tree.Insert(40);
                 tree.Insert(10);
@@ -267,11 +267,11 @@ namespace Tests
                 return tree;
             }
         }
-        private static Tree Tree2
+        private static BinarySearchTree Tree2
         {
             get
             {
-                var tree2 = new Tree();
+                var tree2 = new BinarySearchTree();
                 tree2.Insert(100);
                 tree2.Insert(200);
                 tree2.Insert(50);
@@ -286,20 +286,20 @@ namespace Tests
                 return tree2;
             }
         }
-        private static Tree Tree3
+        private static BinarySearchTree Tree3
         {
             get
             {
-                var tree3 = new Tree();
+                var tree3 = new BinarySearchTree();
                 tree3.Insert(10);
                 return tree3;
             }
         }
-        private static Tree Tree4
+        private static BinarySearchTree Tree4
         {
             get
             {
-                var tree = new Tree();
+                var tree = new BinarySearchTree();
                 tree.Insert(50);
                 tree.Insert(25);
                 tree.Insert(75);

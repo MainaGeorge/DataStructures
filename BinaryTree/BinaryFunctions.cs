@@ -66,11 +66,14 @@ namespace BinaryTree
         {
             if (rootNode == null)
                 return true;
-            if (rootNode.Value == int.MinValue && rootNode.LeftChild != null || rootNode.Value == int.MaxValue && rootNode.RightChild != null)
+
+            if (rootNode.Value == int.MinValue && rootNode.LeftChild != null
+                || rootNode.Value == int.MaxValue && rootNode.RightChild != null)
                 return false;
 
             if (rootNode.Value < minValue || rootNode.Value > maxValue)
                 return false;
+
             return IsBinarySearchTree(rootNode.LeftChild, rootNode.Value - 1, minValue)
                    && IsBinarySearchTree(rootNode.RightChild, maxValue, rootNode.Value + 1);
 
@@ -80,6 +83,7 @@ namespace BinaryTree
         {
             if (rootNode == null)
                 return -1;
+
             if (rootNode.IsALeafNode())
                 return 0;
 
@@ -101,8 +105,10 @@ namespace BinaryTree
             while (nodeQueue.Any())
             {
                 var (node, depth) = nodeQueue.Dequeue();
+
                 if (node.IsALeafNode())
                     return depth;
+
                 if (node.LeftChild != null) nodeQueue.Enqueue((node.LeftChild, depth + 1));
                 if (node.RightChild != null) nodeQueue.Enqueue((node.RightChild, depth + 1));
             }
@@ -127,6 +133,7 @@ namespace BinaryTree
         {
             if (root == null)
                 return null;
+
             var leftSide = root.LeftChild;
             root.LeftChild = root.RightChild;
             root.RightChild = leftSide;
@@ -147,8 +154,10 @@ namespace BinaryTree
 
             if (root == null)
                 return result;
+
             var nodeQueue = new Queue<Node>();
             nodeQueue.Enqueue(root);
+
             var leftToRight = false;
 
             while (nodeQueue.Any())
@@ -160,11 +169,11 @@ namespace BinaryTree
                 {
                     var correctPosition = leftToRight ? index : size - 1 - index;
                     var dequeued = nodeQueue.Dequeue();
-                    if (dequeued.LeftChild != null) nodeQueue.Enqueue(dequeued.LeftChild);
-                    if (dequeued.RightChild != null) nodeQueue.Enqueue(dequeued.RightChild);
-
                     tempResult[correctPosition] = dequeued.Value;
 
+
+                    if (dequeued.LeftChild != null) nodeQueue.Enqueue(dequeued.LeftChild);
+                    if (dequeued.RightChild != null) nodeQueue.Enqueue(dequeued.RightChild);
                 }
 
                 leftToRight = !leftToRight;
@@ -232,6 +241,7 @@ namespace BinaryTree
         {
             if (root == null)
                 return int.MaxValue;
+
             if (root.IsALeafNode())
                 return root.Value;
 
