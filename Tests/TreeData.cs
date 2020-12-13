@@ -251,6 +251,29 @@ namespace Tests
                 };
             }
         }
+        public static IEnumerable<object[]> TreeWithParents => new List<object[]>()
+        {
+            new object[] {Tree1, 50, 40},
+            new object[] {Tree1, 10, 20},
+            new object[] {Tree1, 30, 40},
+        };
+
+        public static IEnumerable<object[]> TreeWithNodesToDelete
+        {
+            get
+            {
+                var listOfNodes1 = new List<int>(){8, 15, 20, 30, 40, 50};
+                var listOfNodes2 = new List<int>(){8, 10, 15, 30, 40, 50};
+                var listOfNodes3 = new List<int>(){10, 15, 20, 30, 40, 50};
+
+                return new List<object[]>()
+                {
+                    new object[] {Tree1, 10, listOfNodes1, 6},
+                    new object[] {Tree1, 20, listOfNodes2, 6},
+                    new object[] {Tree1, 8, listOfNodes3, 6},
+                };
+            }
+        }
         private static BinarySearchTree Tree1
         {
             get

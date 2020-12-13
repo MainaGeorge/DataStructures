@@ -30,6 +30,46 @@ namespace Tests
             Assert.Equal(new List<int>() { 20 }, tree.GetNOdesAtGivenHeight(0));
             Assert.Equal(1, tree.MaximumDepth);
         }
+        [Fact]
+        public void Tree_ReturnTrueIfContainsValue()
+        {
+            var tree = new BinarySearchTree();
+            tree.Insert(20);
+            tree.Insert(30);
+            tree.Insert(10);
+
+            Assert.True(tree.Contains(30));
+            Assert.True(tree.Contains(10));
+        }
+        [Fact]
+        public void Tree_ReturnFalseIfDoesntContainsValue()
+        {
+            var tree = new BinarySearchTree();
+            tree.Insert(20);
+            tree.Insert(30);
+            tree.Insert(10);
+
+            Assert.False(tree.Contains(130));
+            Assert.False(tree.Contains(110));
+        }
+
+        [Fact]
+        public void Tree_CanNotInsertDuplicateValues()
+        {
+            var tree = new BinarySearchTree();
+            tree.Insert(10);
+            tree.Insert(20);
+            tree.Insert(20);
+
+            Assert.Equal(2, tree.CountNodes());
+        }
+
+        [Theory]
+        [MemberData(nameof(TreeData.TreeWithParents), MemberType = typeof(TreeData))]
+        public void Tree_CanCalculateParentNode(BinarySearchTree tree, int childNodeValue, int parentNodeValue)
+        {
+            Assert.Equal(parentNodeValue, tree.GetParent(childNodeValue)?.Value);
+        }
 
         [Theory]
         [MemberData(nameof(TreeData.TreeWithMaximumHeights), MemberType = typeof(TreeData))]
@@ -133,7 +173,7 @@ namespace Tests
         [MemberData(nameof(TreeData.TreeWithAncestor), MemberType = typeof(TreeData))]
         public void Tree_CanGetAncestor(BinarySearchTree binarySearchTree, int firstElement, int secondElement, int ancestorValue)
         {
-            Assert.Equal(binarySearchTree.GetAncestor(firstElement, secondElement)?.Value, ancestorValue);
+            Assert.Equal(binarySearchTree.GetLowestCommonAncestor(firstElement, secondElement)?.Value, ancestorValue);
         }
 
         [Theory]
@@ -182,6 +222,18 @@ namespace Tests
         public void Tree_CanTraversePostOrder(BinarySearchTree binarySearchTree, IList<int> nodes)
         {
             Assert.Equal(binarySearchTree.TraversePostOrder(), nodes);
+        }
+
+        [Theory]
+        [MemberData(nameof(TreeData.TreeWithNodesToDelete), MemberType = typeof(TreeData))]
+        public void Tree_CanDeleteNodes(BinarySearchTree tree, int nodeToRemove, IList<int> nodesInOrder,
+            int numberOfNodesAfterDeleting)
+        {
+            tree.Delete(nodeToRemove);
+
+            Assert.False(tree.Contains(nodeToRemove));
+            Assert.Equal(nodesInOrder, tree.TraverseInOrder());
+            Assert.Equal(numberOfNodesAfterDeleting, tree.CountNodes());
         }
 
 

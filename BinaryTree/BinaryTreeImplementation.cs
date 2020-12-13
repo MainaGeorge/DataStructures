@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BinaryTree
 {
@@ -15,7 +17,9 @@ namespace BinaryTree
             Console.WriteLine(rootNode.Value);
             InOrder(rootNode.RightChild);
         }
+        public int CountNodesWithQueue() => CountNodesWithQueue(RootNode);
         public int Height() => Height(RootNode);
+        public int GetMaximumDepth() => GetMaximumDepth(RootNode);
         private static int Height(Node root)
         {
             if (root == null)
@@ -79,7 +83,6 @@ namespace BinaryTree
 
             return Math.Min(Math.Min(leftSide, rightSide), root.Value);
         }
-
         public int CountNodes() => CountNodes(RootNode);
         private static int CountNodes(Node root)
         {
@@ -90,6 +93,48 @@ namespace BinaryTree
 
             return left + right + 1;
         }
+        private static int CountNodesWithQueue(Node root)
+        {
+            
+            var nodeQueue = new Queue<Node>();
 
+            nodeQueue.Enqueue(root);
+            var numberOfNodes = 0;
+            
+            while (nodeQueue.Any())
+            {
+                var dequeued = nodeQueue.Dequeue();
+                numberOfNodes++;
+                if(dequeued.LeftChild != null)
+                    nodeQueue.Enqueue(dequeued.LeftChild);
+                if(dequeued.RightChild != null)
+                    nodeQueue.Enqueue(dequeued.RightChild);
+            }
+
+            return numberOfNodes;
+        }
+        private static int GetMaximumDepth(Node root)
+        {
+            if (root == null)
+                return -1;
+
+            var maxDepth = int.MinValue;
+
+            var nodeQueue = new Queue<(Node Node, int Depth)>();
+            nodeQueue.Enqueue((root, 0));
+
+            while (nodeQueue.Any())
+            {
+                var (dequeued, depth) = nodeQueue.Dequeue();
+                maxDepth = Math.Max(maxDepth, depth);
+
+                if(dequeued.LeftChild != null)
+                    nodeQueue.Enqueue((dequeued.LeftChild, depth+1));
+                if(dequeued.RightChild != null)
+                    nodeQueue.Enqueue((dequeued.RightChild, depth+1));
+            }
+
+            return maxDepth;
+        }
     }
 }

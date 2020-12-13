@@ -23,6 +23,7 @@ namespace Tests
             tree.Insert(40);
             
             Assert.Equal(1,tree.Height());
+            Assert.Equal(1, tree.GetMaximumDepth());
 
         }
 
@@ -34,6 +35,7 @@ namespace Tests
             tree.Insert(20);
             tree.Insert(40);
             Assert.Equal(3, tree.CountNodes());
+            Assert.Equal(3, tree.CountNodesWithQueue());
         }
 
         [Fact]

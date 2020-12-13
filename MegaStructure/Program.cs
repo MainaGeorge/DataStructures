@@ -7,18 +7,23 @@ namespace MegaStructure
     {
         private static void Main()
         {
-            var tree = new BinaryTreeImplementation();
+            var tree = new BinarySearchTree();
 
-            tree.Insert(10);
-            tree.Insert(20);
+
             tree.Insert(30);
             tree.Insert(40);
+            tree.Insert(10);
+            tree.Insert(20);
             tree.Insert(50);
+            tree.Insert(45);
             tree.Insert(60);
+            tree.Insert(35);
+            tree.Insert(47);
+            tree.Insert(8);
 
-            tree.InOrder();
-            Console.WriteLine($"{tree.MaxValue()}  {tree.MinValue()}");
-            Console.WriteLine($"{tree.Contains(40)}  {tree.Contains(70)}");
+            tree.Delete(50);
+
+            Console.WriteLine(string.Join(" ", tree.TraverseInOrder()));
 
         }
 

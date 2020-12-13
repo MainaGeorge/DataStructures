@@ -37,6 +37,7 @@ namespace BinaryTree
             PreOrderTraversal(_root, nodes);
             return nodes;
         }
+        public bool Contains(int value) => Contains(_root, value);
         public ICollection<int> TraverseInOrder()
         {
             var nodes = new List<int>();
@@ -86,8 +87,8 @@ namespace BinaryTree
             TreeDiameter(_root, straightPathDiameter, ref cyclicDiameter);
             return cyclicDiameter;
         }
-        public Node GetAncestor(int firstElement, int secondElement) =>
-            AncestorNode(_root, firstElement, secondElement);
+        public Node GetLowestCommonAncestor(int firstElement, int secondElement) =>
+            GetLowestCommonAncestor(_root, firstElement, secondElement);
         public ICollection<int> GetNOdesAtGivenHeight(int height)
         {
             var nodes = new List<int>();
@@ -95,14 +96,16 @@ namespace BinaryTree
 
             return nodes;
         }
-        private static Node AncestorNode(Node root, int firstMember, int secondMember)
+        public Node GetParent(int value) => GetParent(_root, value);
+        public void Delete(int value) => Delete(_root, value);
+        private static Node GetLowestCommonAncestor(Node root, int firstMember, int secondMember)
         {
             if (root == null)
                 return null;
             if (root.Value == firstMember || root.Value == secondMember)
                 return root;
-            var leftAncestor = AncestorNode(root.LeftChild, firstMember, secondMember);
-            var rightAncestor = AncestorNode(root.RightChild, firstMember, secondMember);
+            var leftAncestor = GetLowestCommonAncestor(root.LeftChild, firstMember, secondMember);
+            var rightAncestor = GetLowestCommonAncestor(root.RightChild, firstMember, secondMember);
 
             if (leftAncestor != null && rightAncestor != null)
                 return root;
@@ -115,8 +118,10 @@ namespace BinaryTree
         {
             if (root == null)
                 return 0;
+
             if (IsALeafNode(root))
                 return 1;
+
             var leftDiameter = TreeDiameter(root.LeftChild, straightPathDiameter, ref cyclicDiameter);
             var rightDiameter = TreeDiameter(root.RightChild, straightPathDiameter, ref cyclicDiameter);
 
@@ -228,6 +233,103 @@ namespace BinaryTree
             PostOrder(root.RightChild, nodes);
 
             nodes.Add(root.Value);
+        }
+        private static bool Contains(Node root, int value)
+        {
+            if (root == null)
+                return false;
+            var appropriateRoot = value > root.Value ? root.RightChild : root.LeftChild;
+
+            return root.Value == value || Contains(appropriateRoot, value);
+        }
+        private static Node GetParent(Node root, int value)
+        {
+            if (root == null)
+                return null;
+
+            if (IsALeafNode(root))
+                return null;
+
+            if (root.Value == value)
+                return root;
+
+            if (value > root.Value && root.RightChild?.Value == value)
+                return root;
+
+            if (value < root.Value && root.LeftChild?.Value == value)
+                return root;
+
+            var appropriateNode = value > root.Value ? root.RightChild : root.LeftChild;
+            return GetParent(appropriateNode, value);
+
+        }
+        private static void Delete(Node root, int value)
+        {
+            var parentNode = GetParent(root, value);
+
+            if (parentNode == null)
+                return;
+
+            var nodeToBeDeleted =
+                parentNode == root && value == root.Value ? root : GetNodeToBeDeleted(parentNode, value);
+
+            if (IsALeafNode(nodeToBeDeleted))
+                DeleteLeafNode(parentNode, nodeToBeDeleted);
+
+            else if (HasBothLeftAndRightSubTrees(root))
+                DeleteNodeWithTwoSubTrees(nodeToBeDeleted);
+
+            else if (RightChildIsNotNull(root))
+                DeleteNodeWithRightChild(parentNode, nodeToBeDeleted);
+
+            else
+                DeleteNodeWithLeftChild(parentNode, nodeToBeDeleted);
+        }
+        private static bool RightChildIsNotNull(Node root) => root.RightChild != null;
+        private static bool HasBothLeftAndRightSubTrees(Node root) => root.RightChild != null && root.LeftChild != null;
+        private static void DeleteNodeWithLeftChild(Node parentNode, Node nodeToBeDeleted)
+        {
+            if (nodeToBeDeleted.Value > parentNode.Value)
+                parentNode.RightChild = nodeToBeDeleted.LeftChild;
+            else
+                parentNode.LeftChild = nodeToBeDeleted.LeftChild;
+        }
+        private static void DeleteNodeWithRightChild(Node parentNode, Node nodeToBeDeleted)
+        {
+            if (nodeToBeDeleted.Value > parentNode.Value)
+                parentNode.RightChild = nodeToBeDeleted.RightChild;
+            else
+                parentNode.LeftChild = nodeToBeDeleted.RightChild;
+        }
+        private static void DeleteLeafNode(Node parentNode, Node nodeToBeDeleted)
+        {
+            if (nodeToBeDeleted.Value > parentNode.Value)
+                parentNode.RightChild = null;
+            else
+                parentNode.LeftChild = null;
+        }
+        private static Node GetNodeToBeDeleted(Node parent, int value)
+        {
+            return value > parent.Value ? parent.RightChild : parent.LeftChild;
+        }
+        private static void DeleteNodeWithTwoSubTrees(Node nodeToBeDeleted)
+        {
+            var toReplace = nodeToBeDeleted.RightChild;
+            Node parentOfToReplace = null;
+            var ifHasHimselfAsParent = toReplace.RightChild;
+
+            while (toReplace.LeftChild != null)
+            {
+                parentOfToReplace = toReplace;
+                toReplace = toReplace.LeftChild;
+            }
+
+            if (parentOfToReplace != null)
+                parentOfToReplace.LeftChild = toReplace.RightChild;
+            else
+                nodeToBeDeleted.RightChild = ifHasHimselfAsParent;
+
+            nodeToBeDeleted.Value = toReplace.Value;
         }
     }
 }
