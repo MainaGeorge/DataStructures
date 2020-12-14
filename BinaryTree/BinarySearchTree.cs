@@ -276,7 +276,7 @@ namespace BinaryTree
             if (IsALeafNode(nodeToBeDeleted))
                 DeleteLeafNode(parentNode, nodeToBeDeleted);
 
-            else if (HasBothLeftAndRightSubTrees(root))
+            else if (HasBothLeftAndRightSubTrees(nodeToBeDeleted))
                 DeleteNodeWithTwoSubTrees(nodeToBeDeleted);
 
             else if (RightChildIsNotNull(root))

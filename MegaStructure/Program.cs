@@ -19,9 +19,9 @@ namespace MegaStructure
             tree.Insert(60);
             tree.Insert(35);
             tree.Insert(47);
-            tree.Insert(8);
+            // tree.Insert(8);
 
-            tree.Delete(50);
+            tree.Delete(10);
 
             Console.WriteLine(string.Join(" ", tree.TraverseInOrder()));
 
